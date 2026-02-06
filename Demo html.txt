@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Crisis Resource Matching Demo</title>
+  <style>
+    body { font-family: Arial; background:#f5f7fa; padding:30px }
+    h1 { color:#1f2937 }
+    input, button { padding:8px; margin:5px }
+    .box { background:white; padding:20px; border-radius:8px; width:400px }
+  </style>
+</head>
+<body>
+
+<h1>Crisis Need → Resource Matching Demo</h1>
+
+<div class="box">
+  <label>Severity (1–5):</label><br>
+  <input id="severity" type="number" min="1" max="5"><br>
+
+  <label>Population Affected:</label><br>
+  <input id="population" type="number"><br>
+
+  <label>Urgency (1–5):</label><br>
+  <input id="urgency" type="number" min="1" max="5"><br>
+
+  <button onclick="match()">Recommend Resource</button>
+
+  <h3 id="result"></h3>
+</div>
+
+<script>
+function match() {
+  const s = +severity.value;
+  const p = +population.value;
+  const u = +urgency.value;
+
+  const score = (s * 3) + (u * 2) + (p / 1000);
+
+  let resource = "General Aid";
+  if (score > 20) resource = "Emergency Medical Team";
+  else if (score > 12) resource = "Food & Water Supplies";
+
+  document.getElementById("result").innerText =
+    "Priority Score: " + score.toFixed(1) +
+    " → Recommended Resource: " + resource;
+}
+</script>
+
+</body>
+</html>
